@@ -1,0 +1,13 @@
+class Solution {
+public:
+    int firstBadVersion(int n) {
+        long long int i = 1, j = n;
+        while(i < j){
+            long long int mid = (i + j) / 2;
+            bool res = isBadVersion(mid);
+            if (res == false)i = mid + 1;
+            else if(res == true)j = mid;
+        }
+        return i;
+    }
+};
