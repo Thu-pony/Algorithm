@@ -1,0 +1,43 @@
+class Solution {
+public:
+    int maxAreaOfIsland(vector<vector<int>>& grid) {
+        queue<pair<int, int>> q;
+        int dictx[4] = {1, -1, 0, 0};
+        int dictY[4] = {0, 0, 1, -1};
+        int n = grid.size();
+        int m = grid[0].size();
+        int ans = 0;
+        vector<vector<bool>> vis(n, vector<bool>(m, false));
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++){
+                if (!vis[i][j] && grid[i][j]){
+                    pair p1(i, j);
+                    q.push(p1);
+                    int temp = 0;
+                    while(!q.empty()){
+                        temp++;
+                        pair p = q.front();
+                        q.pop();
+                        int nowX = p.first;
+                        int nowY = p.second;
+                        cout<<"nowX = "<<nowX<<" nowY= "<<nowY<<endl;
+                        vis[nowX][nowY] = true;
+                        for (int k = 0; k < 4; k++){
+                            int x = nowX + dictx[k];
+                            int y = nowY + dictY[k];
+                            if (x >= 0 && x < n && y >= 0 && y < m && !vis[x][y] && grid[x][y]){
+                                pair p2(x, y);
+                                vis[x][y] = true;
+                                q.push(p2);
+                            }
+                    
+                        } 
+                    }
+                    ans = max(ans, temp);
+                    cout<<"ans = "<<ans<<endl;
+                }
+            }
+        }
+        return ans;
+    }
+};

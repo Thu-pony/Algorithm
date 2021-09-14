@@ -1,0 +1,24 @@
+class Solution {
+public:
+int height = 0;
+int width = 0;
+int oldColor;
+    void dfs(vector<vector<int>>& image, vector<vector<bool>>& vis, int x, int y, int newColor) {
+        if (x < 0 || x >= height || y < 0 || y >= width || vis[x][y] || image[x][y] != oldColor)return ;
+        vis[x][y] = true;
+        image[x][y] = newColor;
+        dfs(image, vis, x + 1, y, newColor);
+        dfs(image, vis, x - 1, y, newColor);
+        dfs(image, vis, x, y + 1, newColor);
+        dfs(image, vis, x, y - 1, newColor);
+        
+    }
+    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor) {
+       height = image.size();
+       width = image[0].size();
+       oldColor = image[sr][sc];
+        vector<vector<bool>> vis(height, vector<bool>(width, false));
+        dfs(image, vis, sr, sc, newColor);
+        return image;
+    }
+};
