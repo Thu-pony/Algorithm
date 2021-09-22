@@ -1,0 +1,30 @@
+class Solution {
+public:
+    vector<vector<int>> generateMatrix(int n) {
+        vector<vector<int>> ans(n, vector<int>(n, 0));
+        vector<vector<bool>> vis(n, vector<bool>(n, false));
+        int k = 1;
+        int dictX[4] = {0, 1, 0, -1};
+        int dictY[4] = {1, 0, -1, 0};
+        int i = 0, j = 0;
+        int dict = 0;
+        while (k <= n * n){
+        //cout<<"i = "<<i<<"j = "<<j<<" dict = "<<dict<<endl;
+            if (!vis[i][j]){
+                ans[i][j] = k++;
+                vis[i][j] = true;
+            }
+        for (int x = 0; x < 4; x++) {
+        dict = (dict + x) % 4;
+        int nextI = i + dictX[dict];
+        int nextJ = j + dictY[dict];
+        if (nextI >= 0 && nextI < n && nextJ >= 0 && nextJ < n && !vis[nextI][nextJ]){
+            i = nextI;
+            j = nextJ;
+            break;
+        }
+        }   
+        }
+        return ans;
+    }
+};
